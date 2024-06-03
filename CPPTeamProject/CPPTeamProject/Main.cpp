@@ -4,5 +4,9 @@ using namespace std;
 
 int main()
 {
-	TitleRender();
+
+	while (true)
+	{
+		TitleScene();
+	}
 }
