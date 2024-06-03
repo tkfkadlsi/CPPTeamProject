@@ -8,7 +8,7 @@ BOOL Gotoxy(int x, int y)
 	return SetConsoleCursorPosition(
 		GetStdHandle(STD_OUTPUT_HANDLE), Cur);
 }
-
+//asdf
 COORD CursorPos()
 {
 	CONSOLE_SCREEN_BUFFER_INFO Buff;
