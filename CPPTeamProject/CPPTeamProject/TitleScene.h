@@ -1,6 +1,5 @@
 #pragma once
 
-void TitleRender();
 
 enum class MENU
 {
@@ -12,6 +11,9 @@ enum class KEY
 	UP, DOWN, SPACE, FALE
 };
 
+bool TitleScene();
+void TitleRender();
 void InfoRender();
+MENU MenuRender();
 KEY KeyController();
 
