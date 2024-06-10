@@ -14,14 +14,19 @@ void TitleRender()
 	Gotoxy(0, 0);
 	int beforemode = _setmode(_fileno(stdout), _O_U16TEXT);
 
-	//SetColor((int)COLOR::BLUE, (int)COLOR::BLACK);
+	SetColor((int)COLOR::LIGHT_YELLOW, (int)COLOR::BLACK);
 	wcout << L"████████╗██╗████████╗██╗     ███████╗    ███████╗ ██████╗███████╗███╗   ██╗███████╗" << endl;
+	//SetColor((int)COLOR::LIGHT_YELLOW, (int)COLOR::BLACK);
 	wcout << L"╚══██╔══╝██║╚══██╔══╝██║     ██╔════╝    ██╔════╝██╔════╝██╔════╝████╗  ██║██╔════╝" << endl;
 	wcout << L"   ██║   ██║   ██║   ██║     █████╗      ███████╗██║     █████╗  ██╔██╗ ██║█████╗  " << endl;
+	SetColor((int)COLOR::MINT, (int)COLOR::BLACK);
+	//SetColor((int)COLOR::LIGHT_BLUE, (int)COLOR::BLACK);
 	wcout << L"   ██║   ██║   ██║   ██║     ██╔══╝      ╚════██║██║     ██╔══╝  ██║╚██╗██║██╔══╝  " << endl;
+	//SetColor((int)COLOR::LIGHT_VIOLET, (int)COLOR::BLACK);
 	wcout << L"   ██║   ██║   ██║   ███████╗███████╗    ███████║╚██████╗███████╗██║ ╚████║███████╗" << endl;
 	wcout << L"   ╚═╝   ╚═╝   ╚═╝   ╚══════╝╚══════╝    ╚══════╝ ╚═════╝╚══════╝╚═╝  ╚═══╝╚══════╝" << endl;
 
+	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 	int curoremode = _setmode(_fileno(stdout), beforemode);
 }
 
@@ -60,9 +65,44 @@ void EnterAnimation()
 			cout << "■";
 		}
 		cout << '\n';
-		Sleep(50);
+		Sleep(10);
 	}
 
+	// 5번 깜빡거리기.
+	for (int i = 0; i < 1; ++i)
+	{
+		Gotoxy(0, 0);
+		SetColor((int)COLOR::BLACK, (int)COLOR::WHITE);
+		system("cls");
+		Sleep(20);
+
+		Gotoxy(0, 0);
+		SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
+		system("cls");
+		Sleep(20);
+	}
+
+
+	// 크로스.
+	SetColor((int)COLOR::BLACK, (int)COLOR::WHITE);
+	for (int i = 0; i < x / 2; ++i)
+	{
+		for (int j = 0; j < y; j += 2)
+		{
+			Gotoxy(i * 2, j);
+			SetColor((int)COLOR::LIGHT_YELLOW, (int)COLOR::BLACK);
+			//cout << "  ";
+			cout << "■";
+		}
+		for (int j = 1; j < y; j += 2)
+		{
+			Gotoxy(x - 2 - i * 2, j);
+			SetColor((int)COLOR::MINT, (int)COLOR::BLACK);
+			//cout << "  ";
+			cout << "■";
+		}
+		Sleep(30);
+	}
 	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 	system("cls");
 }
