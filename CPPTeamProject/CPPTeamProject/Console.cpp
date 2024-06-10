@@ -1,4 +1,3 @@
-#include <Windows.h>
 #include "Console.h"
 
 BOOL Gotoxy(int x, int y)

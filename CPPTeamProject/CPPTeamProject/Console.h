@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <Windows.h>
 using std::cout;
 using std::wcout;
 BOOL Gotoxy(int x, int y);
@@ -7,6 +8,7 @@ COORD CursorPos();
 void SetCursorVis(bool vis, DWORD size);
 void SetColor(int textColor, int bgColor);
 int GetColor();
+void LockResize();
 COORD GetConsoleResolution();
 void SetFontSize(UINT weight, UINT fontx, UINT fonty);
 
