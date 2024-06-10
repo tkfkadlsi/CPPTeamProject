@@ -5,6 +5,8 @@ using namespace std;
 
 int main()
 {
+	Init();
+
 	int map[8][8] = { 0, };
 	PLAYER player = { };
 
@@ -15,7 +17,7 @@ int main()
 		if (isGameStart) break;
 		else return 0;
 	}
-
+	BorderRender(8);
 	while (true)
 	{
 		Update(map, &player);

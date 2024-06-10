@@ -40,8 +40,12 @@ void Render(int map[8][8], PPLAYER pPlayer)
 	}
 }
 
-void BorderRender(int mapSize, COORD mapStartpos)
+void BorderRender(int mapSize)
 {
+	COORD mapStartpos =
+	{ GetConsoleResolution().X / 2 - 4,
+	  GetConsoleResolution().Y / 2 - 4 };
+
 	int bordersize = mapSize + 2;
 	COORD borderStartpos =
 	{

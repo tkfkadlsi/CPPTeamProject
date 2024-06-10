@@ -155,7 +155,7 @@ KEY KeyController()
 void Init()
 {
 	SetCursorVis(false, 40);
-	system("title cppteamproject | mode con cols=120 lines=60");
+	system("title cppteamproject | mode con cols=100 lines=50");
 }
 
 bool TitleScene()

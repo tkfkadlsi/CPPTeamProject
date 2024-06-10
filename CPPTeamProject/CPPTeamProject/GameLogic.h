@@ -18,4 +18,4 @@ typedef struct _tagplayer
 
 bool Update(int map[8][8], PPLAYER pPlayer);
 void Render(int map[8][8], PPLAYER pPlayer);
-void BorderRender(int mapSize, COORD mapStartpos);
+void BorderRender(int mapSize);
