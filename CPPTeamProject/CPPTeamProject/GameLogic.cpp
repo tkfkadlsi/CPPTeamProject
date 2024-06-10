@@ -16,8 +16,6 @@ void Render(int map[8][8], PPLAYER pPlayer)
 	{ GetConsoleResolution().X / 2 - 4,
 	  GetConsoleResolution().Y / 2 - 4 };
 
-	BorderRender(8, mapStart);
-
 	Gotoxy(mapStart.X, mapStart.Y);
 
 	for (int y = 0; y < 8; y++)
