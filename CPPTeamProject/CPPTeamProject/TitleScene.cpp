@@ -44,68 +44,71 @@ void InfoRender()
 
 MENU MenuRender()
 {
-	COORD Resolution = GetConsoleResolution(); // 해상도 출력
-	int x = Resolution.X / 4.5;
-	int y = Resolution.Y / 4;
-	int originy = y;
+    COORD Resolution = GetConsoleResolution(); // 해상도 출력
+    int x = Resolution.X / 4.5;
+    int y = Resolution.Y / 4;
+    int originy = y;
 
-	Gotoxy(x, y);
-	cout << "게임 시작";
-	Gotoxy(x, y + 1);
-	cout << "게임 정보";
-	Gotoxy(x, y + 2);
-	cout << "게임 종료";
+    Gotoxy(x - 2, y); // 화살표 처음 위치에 출력
+    cout << ">";
+    Gotoxy(x, y);
+    cout << "게임 시작";
+    Gotoxy(x, y + 1);
+    cout << "게임 정보";
+    Gotoxy(x, y + 2);
+    cout << "게임 종료";
 
-	while (true)
-	{
-		// 키 입력이 된 것을 받아옴
-		KEY ekey = KeyController();
+    while (true)
+    {
+        // 키 입력이 된 것을 받아옴
+        KEY ekey = KeyController();
 
-		switch (ekey)
-		{
-			// 화살표 출력
-			// 화살표 지우기
-		case KEY::UP:
-		{
-			if (y > originy)
-			{
-				Gotoxy(x - 2, y);
-				cout << " ";
-				Gotoxy(x - 2, --y);
-				cout << ">";
-				Sleep(100);
-			}
-		}
-		break;
-		case KEY::DOWN:
-		{
-			if (y < originy + 2)
-			{
-				Gotoxy(x - 2, y);
-				cout << " ";
-				Gotoxy(x - 2, ++y);
-				cout << ">";
-				Sleep(100);
-			}
-		}
-		break;
-		case KEY::SPACE:
-		{
-			if (originy == y)
-				return MENU::START;
+        switch (ekey)
+        {
+            // 화살표 출력
+            // 화살표 지우기
+        case KEY::UP:
+        {
+            if (y > originy)
+            {
+                Gotoxy(x - 2, y);
+                cout << " ";
+                Gotoxy(x - 2, --y);
+                cout << ">";
+                Sleep(100);
+            }
+        }
+        break;
+        case KEY::DOWN:
+        {
+            if (y < originy + 2)
+            {
+                Gotoxy(x - 2, y);
+                cout << " ";
+                Gotoxy(x - 2, ++y);
+                cout << ">";
+                Sleep(100);
+            }
+        }
+        break;
+        case KEY::SPACE:
+        {
+            if (originy == y)
+                return MENU::START;
 
-			else if (originy + 1 == y)
-				return MENU::INFO;
+            else if (originy + 1 == y)
+                return MENU::INFO;
 
-			else if (originy + 2 == y)
-				return MENU::QUIT;
-		}
-		break;
-		}
-	}
+            else if (originy + 2 == y)
+                return MENU::QUIT;
+        }
+        break;
+        }
+    }
 
-	return MENU::INFO;
+    return MENU::INFO;
 }
+
 
 KEY KeyController()
 {
