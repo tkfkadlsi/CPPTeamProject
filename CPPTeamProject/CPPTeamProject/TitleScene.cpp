@@ -45,6 +45,7 @@ void InfoRender()
 
 void EnterAnimation()
 {
+	Gotoxy(0, 0);
 	COORD xy = GetConsoleResolution();
 
 	int x = xy.X;
@@ -59,7 +60,7 @@ void EnterAnimation()
 			cout << "■";
 		}
 		cout << '\n';
-		Sleep(250);
+		Sleep(50);
 	}
 
 	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);

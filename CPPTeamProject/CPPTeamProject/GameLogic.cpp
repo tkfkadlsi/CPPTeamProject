@@ -2,7 +2,6 @@
 #include "GameLogic.h"
 bool Update(int map[8][8], PPLAYER pPlayer)
 {
-	map = { 0, };
 	POS playerPos = pPlayer->position;
 
 	map[playerPos.y][playerPos.x] = 1;
@@ -54,9 +53,9 @@ void BorderRender(int mapSize)
 	{
 		for (int j = 0; j < bordersize; j++)
 		{
-			if (i == 0 || i == 7 && j == 0 || j == 7)
+			if (i == 0 || i == 9 && j == 0 || j == 9)
 			{
-				Gotoxy(borderStartpos.X + i, borderStartpos.Y + j);
+				Gotoxy(borderStartpos.X + i * 2, borderStartpos.Y + j);
 				cout << "бс";
 			}
 		}
