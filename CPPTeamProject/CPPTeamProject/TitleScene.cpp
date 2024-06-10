@@ -11,6 +11,7 @@ using namespace std;
 
 void TitleRender()
 {
+	Gotoxy(0, 0);
 	int beforemode = _setmode(_fileno(stdout), _O_U16TEXT);
 
 	//SetColor((int)COLOR::BLUE, (int)COLOR::BLACK);
@@ -40,6 +41,29 @@ void InfoRender()
 			break;
 		}
 	}
+}
+
+void EnterAnimation()
+{
+	COORD xy = GetConsoleResolution();
+
+	int x = xy.X;
+	int y = xy.Y;
+
+	SetColor((int)COLOR::WHITE, (int)COLOR::WHITE);
+
+	for (int i = 0; i < y; i++)
+	{
+		for (int j = 0; j < x; j++)
+		{
+			cout << "■";
+		}
+		cout << '\n';
+		Sleep(250);
+	}
+
+	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
+	system("cls");
 }
 
 MENU MenuRender()
@@ -128,6 +152,12 @@ KEY KeyController()
 	return KEY::FALE;
 }
 
+void Init()
+{
+	SetCursorVis(false, 40);
+	system("title cppteamproject | mode con cols=120 lines=60");
+}
+
 bool TitleScene()
 {
 	TitleRender();
@@ -138,9 +168,8 @@ bool TitleScene()
 		switch (eMenu)
 		{
 		case MENU::START:
-			//EnterAnimation();
+			EnterAnimation();
 			return true;
-			break;
 		case MENU::INFO:
 			InfoRender();
 			break;
