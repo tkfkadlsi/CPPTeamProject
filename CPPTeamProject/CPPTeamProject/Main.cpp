@@ -7,11 +7,12 @@ int main()
 {
 	Init();
 
-	char map[8][8] = { '0' };
+	long deltaTime = 0;
+	char map[8][8] = { 0 };
 	//std::fill(map[0][0], map[7][7], '0');
 	PLAYER player =
 	{
-		player.position = { 4, 4 }
+		player.position = { 4, 4 },
 	};
 
 
@@ -24,8 +25,8 @@ int main()
 	BorderRender(8);
 	while (true)
 	{
-		Update(map, &player);
+		Update(map, &player, &deltaTime);
 		Render(map, &player);
-		Frame(60);
+		Frame(60, &player, &deltaTime);
 	}
 }

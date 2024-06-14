@@ -1,6 +1,8 @@
+ï»¿#include<fcntl.h>
+#include<io.h>
 #include "Console.h"
 #include "GameLogic.h"
-void Frame(int frame)
+void Frame(int frame, PPLAYER pPlayer, long* deltaTime)
 {
 	clock_t oldtime, curtime;
 	oldtime = clock();
@@ -10,18 +12,27 @@ void Frame(int frame)
 		curtime = clock();
 		if (curtime - oldtime > 1000 / frame)
 		{
+			*deltaTime = curtime - oldtime;
 			oldtime = curtime;
 			break;
 		}
 	}
 }
-bool Update(char map[8][8], PPLAYER pPlayer)
+bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 {
+	static std::vector<ARROW> arrowVec;
+	COORD mapStart =
+	{ GetConsoleResolution().X / 2 - 4,
+	  GetConsoleResolution().Y / 2 - 4 };
+
+	pPlayer->countMoveTime += *deltaTime;
 	MoveUpdate(map, pPlayer);
+	CreateArrow(map, pPlayer, arrowVec, mapStart, deltaTime);
+	ActiveArrow(map, arrowVec, mapStart, deltaTime);
 
 	POS playerPos = pPlayer->position;
 
-	map[playerPos.y][playerPos.x] = '1';
+	map[playerPos.y][playerPos.x] = 1;
 
 	return true;
 }
@@ -40,14 +51,19 @@ void Render(char map[8][8], PPLAYER pPlayer)
 		{
 			switch (map[y][x])
 			{
-			case '0':
-				cout << "¡à";
+			case 0:
+				cout << "â–¡";
 				break;
-			case '1':
-				cout << "¢Ü";
+			case 1:
+			{
+				int beforemode = _setmode(_fileno(stdout), _O_U16TEXT);
+				wcout << L"á½£ ";
+				int curoremode = _setmode(_fileno(stdout), beforemode);
+
+			}
 				break;
-			case '2':
-				cout << "¡Ý";
+			case 2:
+				cout << "â—Ž";
 				break;
 			}
 		}
@@ -75,7 +91,7 @@ void BorderRender(int mapSize)
 			if ((i == 0 || i == 9) || (j == 0 || j == 9))
 			{
 				Gotoxy(borderStartpos.X + i * 2, borderStartpos.Y + j);
-				cout << "¡á";
+				cout << "â– ";
 			}
 		}
 	}
@@ -84,28 +100,162 @@ void BorderRender(int mapSize)
 
 void MoveUpdate(char map[8][8], PPLAYER pPlayer)
 {
+	if (pPlayer->countMoveTime < pPlayer->waitMSForMove) return;
+
 	if (GetAsyncKeyState(VK_UP) & 0x8000)
 	{
 		if (pPlayer->position.y == 0) return;
-		map[pPlayer->position.y][pPlayer->position.x] = '0';
+		map[pPlayer->position.y][pPlayer->position.x] = 0;
 		--pPlayer->position.y;
+		pPlayer->countMoveTime = 0;
 	}
 	if (GetAsyncKeyState(VK_DOWN) & 0x8000)
 	{
 		if (pPlayer->position.y == 7) return;
-		map[pPlayer->position.y][pPlayer->position.x] = '0';
+		map[pPlayer->position.y][pPlayer->position.x] = 0;
 		++pPlayer->position.y;
+		pPlayer->countMoveTime = 0;
 	}
 	if (GetAsyncKeyState(VK_LEFT) & 0x8000)
 	{
 		if (pPlayer->position.x == 0) return;
-		map[pPlayer->position.y][pPlayer->position.x] = '0';
+		map[pPlayer->position.y][pPlayer->position.x] = 0;
 		--pPlayer->position.x;
+		pPlayer->countMoveTime = 0;
 	}
 	if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
 	{
 		if (pPlayer->position.x == 7) return;
-		map[pPlayer->position.y][pPlayer->position.x] = '0';
+		map[pPlayer->position.y][pPlayer->position.x] = 0;
 		++pPlayer->position.x;
+		pPlayer->countMoveTime = 0;
+	}
+}
+
+void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime)
+{
+
+	static int waitCreateArrow = 3000;
+	static int countWaitTime = 0;
+	int createAmount = 0;
+
+	countWaitTime += *deltaTime;
+
+	if (countWaitTime > waitCreateArrow)
+	{
+		countWaitTime -= waitCreateArrow;
+		waitCreateArrow -= 5;
+		if (waitCreateArrow < 1000)
+		{
+			waitCreateArrow = 1000;
+		}
+
+		if (waitCreateArrow < 1500)
+		{
+			createAmount = 4;
+		}
+		else if(waitCreateArrow < 2000)
+		{
+			createAmount = 3;
+		}
+		else if (waitCreateArrow < 2500)
+		{
+			createAmount = 2;
+		}
+		else
+		{
+			createAmount = 1;
+		}
+	}
+	else
+	{
+		return;
+	}
+
+
+
+	bool isUp = true, isRight = true;
+
+	for (int i = 0; i < createAmount; i++)
+	{
+		POS spawnPos = { 0, 0 };
+		int dir = rand() % 4;
+		switch (dir)
+		{
+		case 0:
+		{
+			spawnPos = { mapStart.X + (rand() % 8) * 2, mapStart.Y - 2};
+			Gotoxy(spawnPos.x, spawnPos.y);
+			cout << "â†“";
+		}
+			break;
+		case 1:
+		{
+			spawnPos = { mapStart.X + (rand() % 8) * 2, mapStart.Y + 9 };
+			Gotoxy(spawnPos.x, spawnPos.y);
+			cout << "â†‘";
+		}
+			break;
+		case 2:
+		{
+			spawnPos = { mapStart.X + 18, mapStart.Y + rand() % 8 };
+			Gotoxy(spawnPos.x, spawnPos.y);
+			cout << "â†";
+		}
+			break;
+		case 3:
+		{
+			spawnPos = { mapStart.X - 4, mapStart.Y + rand() % 8 };
+			Gotoxy(spawnPos.x, spawnPos.y);
+			cout << "â†’";
+		}
+			break;
+		}
+
+		ARROW arrow = {
+			arrow.position = spawnPos,
+			arrow.spawnDir = dir,
+			arrow.countwaitTime = waitCreateArrow / 2
+		};
+
+		arrowVec.push_back(arrow);
+	}
+}
+
+void ActiveArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime)
+{
+	for (int i = 0; i < arrowVec.size(); i++)
+	{
+		arrowVec[i].countwaitTime -= *deltaTime;
+		if (arrowVec[i].countwaitTime < 0)
+		{
+			switch (arrowVec[i].spawnDir)
+			{
+			case 0:
+			case 1:
+			{
+				Gotoxy(arrowVec[i].position.x, arrowVec[i].position.y);
+				cout << " ";
+
+				for (int j = 0; j < 8; j++)
+				{
+					map[j][(arrowVec[i].position.x - mapStart.X) / 2] = 2;
+				}
+			}
+				break;
+			case 2:
+			case 3:
+			{
+				Gotoxy(arrowVec[i].position.x, arrowVec[i].position.y);
+				cout << " ";
+
+				for (int j = 0; j < 8; j++)
+				{
+					map[arrowVec[i].position.y - mapStart.Y][j] = 2;
+				}
+			}
+				break;
+			}
+		}
 	}
 }
