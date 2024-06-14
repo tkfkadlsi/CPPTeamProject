@@ -14,17 +14,39 @@ void TitleRender()
 	Gotoxy(0, 0);
 	int beforemode = _setmode(_fileno(stdout), _O_U16TEXT);
 
+	SetColor((int)COLOR::BLACK, (int)COLOR::WHITE);
+	wcout << "                                                                              " << endl;
+	wcout << L"  ██████╗ █████╗ ████████╗    ███████╗███████╗ ██████╗ █████╗ ██████╗ ███████╗" << endl;
+	wcout << L" ██╔════╝██╔══██╗╚══██╔══╝    ██╔════╝██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝" << endl;
+	wcout << L" ██║     ███████║   ██║       █████╗  ███████╗██║     ███████║██████╔╝█████╗  " << endl;
+	wcout << L" ██║     ██╔══██║   ██║       ██╔══╝  ╚════██║██║     ██╔══██║██╔═══╝ ██╔══╝  " << endl;
+	wcout << L" ╚██████╗██║  ██║   ██║       ███████╗███████║╚██████╗██║  ██║██║     ███████ " << endl;
+	wcout << L" ╚═════╝╚═╝  ╚═╝   ╚═╝       ╚══════╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝     ╚══════╝ " << endl;
+	
+	wcout << endl;
 	SetColor((int)COLOR::LIGHT_YELLOW, (int)COLOR::BLACK);
-	wcout << L"████████╗██╗████████╗██╗     ███████╗    ███████╗ ██████╗███████╗███╗   ██╗███████╗" << endl;
-	//SetColor((int)COLOR::LIGHT_YELLOW, (int)COLOR::BLACK);
-	wcout << L"╚══██╔══╝██║╚══██╔══╝██║     ██╔════╝    ██╔════╝██╔════╝██╔════╝████╗  ██║██╔════╝" << endl;
-	wcout << L"   ██║   ██║   ██║   ██║     █████╗      ███████╗██║     █████╗  ██╔██╗ ██║█████╗  " << endl;
-	SetColor((int)COLOR::MINT, (int)COLOR::BLACK);
-	//SetColor((int)COLOR::LIGHT_BLUE, (int)COLOR::BLACK);
-	wcout << L"   ██║   ██║   ██║   ██║     ██╔══╝      ╚════██║██║     ██╔══╝  ██║╚██╗██║██╔══╝  " << endl;
-	//SetColor((int)COLOR::LIGHT_VIOLET, (int)COLOR::BLACK);
-	wcout << L"   ██║   ██║   ██║   ███████╗███████╗    ███████║╚██████╗███████╗██║ ╚████║███████╗" << endl;
-	wcout << L"   ╚═╝   ╚═╝   ╚═╝   ╚══════╝╚══════╝    ╚══════╝ ╚═════╝╚══════╝╚═╝  ╚═══╝╚══════╝" << endl;
+
+	wcout << L"         ↓                  ↓" << endl;
+	wcout << L"             __                ↓" << endl;
+	wcout << L"    ↓     ,db'    ↓     ↓" << endl;
+	wcout << L"         ,d8/       ↓             ↓" << endl;
+	wcout << L"         888" << endl;
+	wcout << L"         `db\\             ↓" << endl;
+	wcout << L"           `o`_                    ↓ ↓" << endl;
+	wcout << L"      ↓                      _          ↓" << endl;
+	wcout << L"            ↓                 / )" << endl;
+
+	wcout << L"         ↓   (\\__/)↓        ( (  ↓" << endl;
+	wcout << L"       ,-.,-.,)    (.,-.,-.,-.) ).,-.,-." << endl;
+	wcout << L"      | @|  ={      }= | @|  / / | @|o |" << endl;
+	wcout << L"     _j__j__j_)     `-------/ /__j__j__j_" << endl;
+	wcout << L"     ________(               /___________" << endl;
+	wcout << L"      |  | @| \\              || o|O | @|" << endl;
+	wcout << L"      |o |  |,'\\       ,   ,\"|  |  |  |  hjw" << endl;
+	wcout << L"     vV\\|/vV|`-\\  ,---\\   | \\Vv\\hjwVv\\//v" << endl;
+	wcout << L"                _) )    `. \\/" << endl;
+	wcout << L"               (__/       ) )" << endl;
+	wcout << L"                         (_/" << endl;
 
 	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 	int curoremode = _setmode(_fileno(stdout), beforemode);
