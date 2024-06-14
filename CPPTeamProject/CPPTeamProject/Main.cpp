@@ -7,8 +7,12 @@ int main()
 {
 	Init();
 
-	int map[8][8] = { 0, };
-	PLAYER player = { };
+	char map[8][8] = { '0' };
+	//std::fill(map[0][0], map[7][7], '0');
+	PLAYER player =
+	{
+		player.position = { 4, 4 }
+	};
 
 
 	while (true)
@@ -22,5 +26,6 @@ int main()
 	{
 		Update(map, &player);
 		Render(map, &player);
+		Frame(60);
 	}
 }

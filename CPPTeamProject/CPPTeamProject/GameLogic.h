@@ -16,6 +16,8 @@ typedef struct _tagplayer
 	POS position;
 }PLAYER, *PPLAYER;
 
-bool Update(int map[8][8], PPLAYER pPlayer);
-void Render(int map[8][8], PPLAYER pPlayer);
+void Frame(int frame);
+bool Update(char map[8][8], PPLAYER pPlayer);
+void Render(char map[8][8], PPLAYER pPlayer);
 void BorderRender(int mapSize);
+void MoveUpdate(char map[8][8], PPLAYER pPlayer);
