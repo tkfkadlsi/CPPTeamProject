@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vector>
 typedef struct _tagpos
 {
 	int x;
@@ -14,10 +14,21 @@ typedef struct _tagpos
 typedef struct _tagplayer
 {
 	POS position;
+	long waitMSForMove = 250;
+	long countMoveTime = 0;
 }PLAYER, *PPLAYER;
 
-void Frame(int frame);
-bool Update(char map[8][8], PPLAYER pPlayer);
+typedef struct _tagarrow
+{
+	POS position;
+	int spawnDir;
+	long countwaitTime;
+}ARROW, *PARROW;
+
+void Frame(int frame, PPLAYER pPlayer, long* deltaTime);
+bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime);
 void Render(char map[8][8], PPLAYER pPlayer);
 void BorderRender(int mapSize);
 void MoveUpdate(char map[8][8], PPLAYER pPlayer);
+void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime);
+void ActiveArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime);
