@@ -14,10 +14,13 @@ void TitleRender()
 	Gotoxy(0, 0);
 	int beforemode = _setmode(_fileno(stdout), _O_U16TEXT);
 
-	SetColor((int)COLOR::BLACK, (int)COLOR::WHITE);
+	//SetColor((int)COLOR::BLACK, (int)COLOR::WHITE);
+	//SetColor((int)COLOR::BLACK, (int)COLOR::LIGHT_YELLOW);
+	SetColor((int)COLOR::GRAY, (int)COLOR::BLACK);
 	wcout << "                                                                              " << endl;
 	wcout << L"  ██████╗ █████╗ ████████╗    ███████╗███████╗ ██████╗ █████╗ ██████╗ ███████╗" << endl;
 	wcout << L" ██╔════╝██╔══██╗╚══██╔══╝    ██╔════╝██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝" << endl;
+	SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
 	wcout << L" ██║     ███████║   ██║       █████╗  ███████╗██║     ███████║██████╔╝█████╗  " << endl;
 	wcout << L" ██║     ██╔══██║   ██║       ██╔══╝  ╚════██║██║     ██╔══██║██╔═══╝ ██╔══╝  " << endl;
 	wcout << L" ╚██████╗██║  ██║   ██║       ███████╗███████║╚██████╗██║  ██║██║     ███████ " << endl;
