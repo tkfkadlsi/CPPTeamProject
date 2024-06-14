@@ -1,5 +1,6 @@
 #include "Console.h"
 #include "GameLogic.h"
+#include "mci.h"
 void Frame(int frame)
 {
 	clock_t oldtime, curtime;
@@ -57,6 +58,8 @@ void Render(char map[8][8], PPLAYER pPlayer)
 
 void BorderRender(int mapSize)
 {
+	PlayBgm(TEXT("CatEscapeBGM.mp3"), 500);
+
 	SetColor((int)COLOR::WHITE, (int)COLOR::WHITE);
 	COORD mapStartpos =
 	{ GetConsoleResolution().X / 2 - 4,
