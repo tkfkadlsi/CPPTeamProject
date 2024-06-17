@@ -32,8 +32,13 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 	MoveUpdate(map, pPlayer);
 	CreateArrow(map, pPlayer, arrowVec, mapStart, deltaTime);
 	ActiveArrow(map, arrowVec, mapStart, deltaTime);
+	DeleteArrow(map, arrowVec, mapStart, deltaTime);
 
 	POS playerPos = pPlayer->position;
+	if (map[playerPos.y][playerPos.x] == 2)
+	{
+		return false;
+	}
 
 	map[playerPos.y][playerPos.x] = 1;
 
@@ -240,8 +245,8 @@ void ActiveArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 			case 1:
 			{
 				Gotoxy(arrowVec[i].position.x, arrowVec[i].position.y);
-				cout << " ";
-
+				cout << "  ";
+				arrowVec[i].isBombed = true;
 				for (int j = 0; j < 8; j++)
 				{
 					map[j][(arrowVec[i].position.x - mapStart.X) / 2] = 2;
@@ -252,14 +257,75 @@ void ActiveArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 			case 3:
 			{
 				Gotoxy(arrowVec[i].position.x, arrowVec[i].position.y);
-				cout << " ";
-
+				cout << "  ";
+				arrowVec[i].isBombed = true;
 				for (int j = 0; j < 8; j++)
 				{
 					map[arrowVec[i].position.y - mapStart.Y][j] = 2;
 				}
 			}
 				break;
+			}
+		}
+	}
+}
+
+void DeleteArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime)
+{
+	for (int i = 0; i < arrowVec.size(); i++)
+	{
+		if (arrowVec[i].isBombed == false)
+		{
+			return;
+		}
+
+		arrowVec[i].countAfterBombTime += *deltaTime;
+		if (arrowVec[i].countAfterBombTime >= 100)
+		{
+			switch (arrowVec[i].spawnDir)
+			{
+			case 0:
+			case 1:
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					map[j][(arrowVec[i].position.x - mapStart.X) / 2] = 0;
+				}
+			}
+			break;
+			case 2:
+			case 3:
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					map[arrowVec[i].position.y - mapStart.Y][j] = 0;
+				}
+			}
+			break;
+			}
+		}
+		else
+		{
+			switch (arrowVec[i].spawnDir)
+			{
+			case 0:
+			case 1:
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					map[j][(arrowVec[i].position.x - mapStart.X) / 2] = 2;
+				}
+			}
+			break;
+			case 2:
+			case 3:
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					map[arrowVec[i].position.y - mapStart.Y][j] = 2;
+				}
+			}
+			break;
 			}
 		}
 	}
