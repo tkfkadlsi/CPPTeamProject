@@ -23,6 +23,8 @@ typedef struct _tagarrow
 	POS position;
 	int spawnDir;
 	long countwaitTime;
+	bool isBombed = false;
+	long countAfterBombTime;
 }ARROW, *PARROW;
 
 void Frame(int frame, PPLAYER pPlayer, long* deltaTime);
@@ -32,3 +34,4 @@ void BorderRender(int mapSize);
 void MoveUpdate(char map[8][8], PPLAYER pPlayer);
 void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime);
 void ActiveArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime);
+void DeleteArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime);

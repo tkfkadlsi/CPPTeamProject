@@ -25,7 +25,10 @@ int main()
 	BorderRender(8);
 	while (true)
 	{
-		Update(map, &player, &deltaTime);
+		if (Update(map, &player, &deltaTime) == false)
+		{
+			return 0;
+		}
 		Render(map, &player);
 		Frame(60, &player, &deltaTime);
 	}
