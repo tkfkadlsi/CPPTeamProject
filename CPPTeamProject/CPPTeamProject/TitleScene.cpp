@@ -54,23 +54,65 @@ void TitleRender()
 	int curoremode = _setmode(_fileno(stdout), beforemode);
 }
 
-
 void InfoRender()
 {
+	COORD Resolution = GetConsoleResolution(); // 콘솔 해상도를 가져옵니다
+
 	system("cls");
-	cout << "조작법" << endl;
-	cout << "게임 설명" << endl;
-	cout << "제작" << endl;
+
+	int boxWidth = 50;
+	int boxHeight = 9;
+	int boxX = (Resolution.X - boxWidth) / 2;
+	int boxY = (Resolution.Y - boxHeight) / 2;
+
+	// 상단 네모 출력
+	Gotoxy(boxX, boxY);
+	cout << "┌";
+	for (int i = 0; i < boxWidth - 2; ++i)
+		cout << "─";
+	cout << "┐";
+
+	// 중간 부분 출력
+	for (int i = 1; i < boxHeight - 1; ++i)
+	{
+		Gotoxy(boxX, boxY + i);
+		cout << "│";
+		for (int j = 0; j < boxWidth - 2; ++j)
+			cout << " ";
+		cout << "│";
+	}
+
+	// 하단 네모 출력
+	Gotoxy(boxX, boxY + boxHeight - 1);
+	cout << "└";
+	for (int i = 0; i < boxWidth - 2; ++i)
+		cout << "─";
+	cout << "┘";
+
+	// 텍스트 출력
+	Gotoxy(boxX + 2, boxY + 1);
+	cout << "조  작  법  : ←↑→↓ 방향키" << endl;
+	Gotoxy(boxX + 2, boxY + 3);
+	cout << "게 임 설 명 : 화살표가 가리킨 줄을 피하고" << endl;
+	Gotoxy(boxX + 2, boxY + 5);
+	cout << "	       최대한 오래 살아 남으세요!" << endl;
+	Gotoxy(boxX + 2, boxY + 7);
+	cout << "제      작  : 20306 김예성, 20312 이예빈" << endl;
+
+
 	Sleep(100);
 	while (true)
 	{
 		if (KeyController() == KEY::SPACE)
 		{
 			system("cls");
+			Sleep(100);
+			TitleRender();
 			break;
 		}
 	}
 }
+
 
 void EnterAnimation()
 {
@@ -121,7 +163,7 @@ void EnterAnimation()
 		for (int j = 1; j < y; j += 2)
 		{
 			Gotoxy(x - 2 - i * 2, j);
-			SetColor((int)COLOR::MINT, (int)COLOR::BLACK);
+			SetColor((int)COLOR::GRAY, (int)COLOR::BLACK);
 			//cout << "  ";
 			cout << "■";
 		}
@@ -221,7 +263,7 @@ void Init()
 {
 	srand((unsigned int)time(nullptr));
 	SetCursorVis(false, 40);
-	system("title cppteamproject | mode con cols=100 lines=50");
+	system("title cppteamproject | mode con cols=80 lines=30");
 		
 	PlayBgm(TEXT("TitleBGM.mp3"), 500);
 }
