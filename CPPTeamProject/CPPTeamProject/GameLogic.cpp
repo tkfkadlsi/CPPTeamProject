@@ -154,7 +154,7 @@ void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, 
 	if (countWaitTime > waitCreateArrow)
 	{
 		countWaitTime -= waitCreateArrow;
-		waitCreateArrow -= 5;
+		waitCreateArrow -= 50;
 		if (waitCreateArrow < 1000)
 		{
 			waitCreateArrow = 1000;

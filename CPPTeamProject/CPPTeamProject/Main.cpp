@@ -32,4 +32,6 @@ int main()
 		Render(map, &player);
 		Frame(60, &player, &deltaTime);
 	}
+
+	//여기서 게임 끝났을 때 버틴 시간 보여주기. 그리고 타이틀 화면으로 돌아가기
 }
