@@ -26,22 +26,45 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 {
 	static std::vector<ARROW> arrowVec;
 	COORD mapStart =
-	{ GetConsoleResolution().X / 2 - 8,
-	  GetConsoleResolution().Y / 2 - 4 };
+	{
+		GetConsoleResolution().X / 2 - 8,
+		GetConsoleResolution().Y / 2 - 4 
+	};
+
+
 
 	pPlayer->countMoveTime += *deltaTime;
+	pPlayer->countSuperGuardCoolDown += *deltaTime;
+	pPlayer->superGuardTime -= *deltaTime;
 	MoveUpdate(map, pPlayer);
 	CreateArrow(map, pPlayer, arrowVec, mapStart, deltaTime);
 	ActiveArrow(map, arrowVec, mapStart, deltaTime);
 	DeleteArrow(map, arrowVec, mapStart, deltaTime);
 
 	POS playerPos = pPlayer->position;
-	if (map[playerPos.y][playerPos.x] == 2)
+	bool IsSuperGuard = false;
+	if (pPlayer->superGuardTime > 0)
+	{
+		IsSuperGuard = true;
+	}
+	else
+	{
+		IsSuperGuard = false;
+	}
+
+	if (map[playerPos.y][playerPos.x] == 2 && !IsSuperGuard)
 	{
 		return false;
 	}
 
-	map[playerPos.y][playerPos.x] = 1;
+	if (IsSuperGuard)
+	{
+		map[playerPos.y][playerPos.x] = 3;
+	}
+	else
+	{
+		map[playerPos.y][playerPos.x] = 1;
+	}
 
 	return true;
 }
@@ -53,7 +76,16 @@ void Render(char map[8][8], PPLAYER pPlayer, time_t currentTime)
 	  GetConsoleResolution().Y / 2 - 4 };
 
 	Gotoxy(0, 0);
-	cout << "버틴 시간 : " << currentTime << " 초";
+	cout << "버틴 시간 : " << currentTime << " 초" << std::endl;
+	if (pPlayer->countSuperGuardCoolDown > 5000)
+	{
+		cout << "슈퍼아머 : 사용 가능";
+	}
+	else
+	{
+		long time = 5000 - pPlayer->countSuperGuardCoolDown;
+		cout << "슈퍼아머 : " << time / 1000 + 1 << "초 남음" << std::endl;
+	}
 
 	for (int y = 0; y < 8; y++)
 	{
@@ -76,6 +108,8 @@ void Render(char map[8][8], PPLAYER pPlayer, time_t currentTime)
 			case 2:
 				cout << "◎";
 				break;
+			case 3:
+				cout << "♠";
 			}
 		}
 		cout << '\n';
@@ -142,6 +176,12 @@ void MoveUpdate(char map[8][8], PPLAYER pPlayer)
 		map[pPlayer->position.y][pPlayer->position.x] = 0;
 		++pPlayer->position.x;
 		pPlayer->countMoveTime = 0;
+	}
+	if (GetAsyncKeyState(VK_SPACE) & 0x8000)
+	{
+		if (pPlayer->countSuperGuardCoolDown < pPlayer->superGuardCoolTime) return;
+		pPlayer->countSuperGuardCoolDown = 0;
+		pPlayer->superGuardTime = 1000;
 	}
 }
 

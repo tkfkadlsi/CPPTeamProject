@@ -16,6 +16,10 @@ typedef struct _tagplayer
 	POS position;
 	long waitMSForMove = 100;
 	long countMoveTime = 0;
+
+	long superGuardTime = 0;
+	long superGuardCoolTime = 5000;
+	long countSuperGuardCoolDown = 5000;
 }PLAYER, *PPLAYER;
 
 typedef struct _tagarrow
