@@ -264,8 +264,7 @@ void Init()
 	srand((unsigned int)time(nullptr));
 	SetCursorVis(false, 40);
 
-	//system("title cppteamproject | mode con cols=80 lines=30");
-	system("title cppteamproject | mode con cols=80 lines=40");
+	system("title cppteamproject | mode con cols=80 lines=30");
 
 		
 	PlayBgm(TEXT("TitleBGM.mp3"), 500);
@@ -287,6 +286,7 @@ bool TitleScene()
 			InfoRender();
 			break;
 		case MENU::QUIT:
+			system("cls");
 			return false;
 			break;
 		}
