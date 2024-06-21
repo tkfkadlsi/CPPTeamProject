@@ -49,7 +49,7 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 void Render(char map[8][8], PPLAYER pPlayer)
 {
 	COORD mapStart =
-	{ GetConsoleResolution().X / 2 - 4,
+	{ GetConsoleResolution().X / 2 - 8,
 	  GetConsoleResolution().Y / 2 - 4 };
 
 
@@ -86,7 +86,7 @@ void BorderRender(int mapSize)
 
 	SetColor((int)COLOR::WHITE, (int)COLOR::WHITE);
 	COORD mapStartpos =
-	{ GetConsoleResolution().X / 2 - 4,
+	{ GetConsoleResolution().X / 2 - 8,
 	  GetConsoleResolution().Y / 2 - 4 };
 
 	int bordersize = mapSize + 2;
