@@ -38,9 +38,7 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 	POS playerPos = pPlayer->position;
 	if (map[playerPos.y][playerPos.x] == 2)
 	{
-		//return false;
-		system("cls");
-		TitleScene();
+		return false;
 	}
 
 	map[playerPos.y][playerPos.x] = 1;
