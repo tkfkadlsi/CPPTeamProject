@@ -47,6 +47,7 @@ int main()
 		// 경과 시간 계산
 		double duration = difftime(endTime, startTime);
 		cout << "버틴 시간: " << duration << "초" << endl;
+		Sleep(500);
 		cout << "잠시 후 타이틀로 돌아갑니다.";
 
 		Sleep(3000);
