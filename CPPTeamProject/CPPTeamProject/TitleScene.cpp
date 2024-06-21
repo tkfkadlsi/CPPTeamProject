@@ -258,6 +258,7 @@ KEY KeyController()
 	return KEY::FALE;
 }
 
+
 void Init()
 {
 	srand((unsigned int)time(nullptr));
