@@ -46,12 +46,14 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 	return true;
 }
 
-void Render(char map[8][8], PPLAYER pPlayer)
+void Render(char map[8][8], PPLAYER pPlayer, time_t currentTime)
 {
 	COORD mapStart =
 	{ GetConsoleResolution().X / 2 - 8,
 	  GetConsoleResolution().Y / 2 - 4 };
 
+	Gotoxy(0, 0);
+	cout << "버틴 시간 : " << currentTime << " 초";
 
 	for (int y = 0; y < 8; y++)
 	{

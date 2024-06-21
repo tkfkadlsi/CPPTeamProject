@@ -39,7 +39,7 @@ typedef struct _tagarrow
 
 void Frame(int frame, PPLAYER pPlayer, long* deltaTime);
 bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime);
-void Render(char map[8][8], PPLAYER pPlayer);
+void Render(char map[8][8], PPLAYER pPlayer, time_t currentTime);
 void BorderRender(int mapSize);
 void MoveUpdate(char map[8][8], PPLAYER pPlayer);
 void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime);
