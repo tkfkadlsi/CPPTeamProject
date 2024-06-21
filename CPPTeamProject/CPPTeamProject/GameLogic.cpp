@@ -330,3 +330,4 @@ void DeleteArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 		}
 	}
 }
+

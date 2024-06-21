@@ -113,11 +113,10 @@ void InfoRender()
 	}
 }
 
-
 void EnterAnimation()
 {
 	Gotoxy(0, 0);
-	COORD xy = GetConsoleResolution();
+	COORD xy = GetConsoleResolution();          
 
 	int x = xy.X;
 	int y = xy.Y;
