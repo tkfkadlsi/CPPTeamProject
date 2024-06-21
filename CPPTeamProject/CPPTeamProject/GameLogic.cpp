@@ -2,6 +2,7 @@
 #include<io.h>
 #include "Console.h"
 #include "GameLogic.h"
+#include "TitleScene.h"
 
 #include "mci.h"
 
@@ -37,7 +38,9 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 	POS playerPos = pPlayer->position;
 	if (map[playerPos.y][playerPos.x] == 2)
 	{
-		return false;
+		//return false;
+		system("cls");
+		TitleScene();
 	}
 
 	map[playerPos.y][playerPos.x] = 1;

@@ -262,7 +262,7 @@ void Init()
 {
 	srand((unsigned int)time(nullptr));
 	SetCursorVis(false, 40);
-
+		
 	system("title cppteamproject | mode con cols=80 lines=30");
 
 		
