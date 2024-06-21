@@ -14,7 +14,7 @@ typedef struct _tagpos
 typedef struct _tagplayer
 {
 	POS position;
-	long waitMSForMove = 250;
+	long waitMSForMove = 100;
 	long countMoveTime = 0;
 }PLAYER, *PPLAYER;
 
@@ -25,6 +25,16 @@ typedef struct _tagarrow
 	long countwaitTime;
 	bool isBombed = false;
 	long countAfterBombTime;
+
+	bool operator==(_tagarrow other)
+	{
+		return
+			position == other.position &&
+			spawnDir == other.spawnDir &&
+			countwaitTime == other.countwaitTime &&
+			isBombed == other.isBombed &&
+			countAfterBombTime == countAfterBombTime;
+	}
 }ARROW, *PARROW;
 
 void Frame(int frame, PPLAYER pPlayer, long* deltaTime);
