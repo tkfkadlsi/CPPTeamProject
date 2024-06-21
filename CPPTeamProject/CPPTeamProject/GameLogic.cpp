@@ -70,7 +70,7 @@ void Render(char map[8][8], PPLAYER pPlayer)
 				int curoremode = _setmode(_fileno(stdout), beforemode);
 
 			}
-				break;
+			break;
 			case 2:
 				cout << "◎";
 				break;
@@ -161,22 +161,7 @@ void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, 
 			waitCreateArrow = 1000;
 		}
 
-		if (waitCreateArrow < 1500)
-		{
-			createAmount = 4;
-		}
-		else if(waitCreateArrow < 2000)
-		{
-			createAmount = 3;
-		}
-		else if (waitCreateArrow < 2500)
-		{
-			createAmount = 2;
-		}
-		else
-		{
-			createAmount = 1;
-		}
+		createAmount = 10 - waitCreateArrow / 300;
 	}
 	else
 	{
@@ -195,32 +180,32 @@ void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, 
 		{
 		case 0:
 		{
-			spawnPos = { mapStart.X + (rand() % 8) * 2, mapStart.Y - 2};
+			spawnPos = { mapStart.X + (rand() % 8) * 2, mapStart.Y - 2 };
 			Gotoxy(spawnPos.x, spawnPos.y);
 			cout << "↓";
 		}
-			break;
+		break;
 		case 1:
 		{
 			spawnPos = { mapStart.X + (rand() % 8) * 2, mapStart.Y + 9 };
 			Gotoxy(spawnPos.x, spawnPos.y);
 			cout << "↑";
 		}
-			break;
+		break;
 		case 2:
 		{
 			spawnPos = { mapStart.X + 18, mapStart.Y + rand() % 8 };
 			Gotoxy(spawnPos.x, spawnPos.y);
 			cout << "←";
 		}
-			break;
+		break;
 		case 3:
 		{
 			spawnPos = { mapStart.X - 4, mapStart.Y + rand() % 8 };
 			Gotoxy(spawnPos.x, spawnPos.y);
 			cout << "→";
 		}
-			break;
+		break;
 		}
 
 		ARROW arrow = {
@@ -253,7 +238,7 @@ void ActiveArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 					map[j][(arrowVec[i].position.x - mapStart.X) / 2] = 2;
 				}
 			}
-				break;
+			break;
 			case 2:
 			case 3:
 			{
@@ -265,7 +250,7 @@ void ActiveArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 					map[arrowVec[i].position.y - mapStart.Y][j] = 2;
 				}
 			}
-				break;
+			break;
 			}
 		}
 	}
@@ -292,6 +277,7 @@ void DeleteArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 				{
 					map[j][(arrowVec[i].position.x - mapStart.X) / 2] = 0;
 				}
+				arrowVec.erase(arrowVec.begin() + i);
 			}
 			break;
 			case 2:
@@ -301,6 +287,7 @@ void DeleteArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 				{
 					map[arrowVec[i].position.y - mapStart.Y][j] = 0;
 				}
+				arrowVec.erase(arrowVec.begin() + i);
 			}
 			break;
 			}
