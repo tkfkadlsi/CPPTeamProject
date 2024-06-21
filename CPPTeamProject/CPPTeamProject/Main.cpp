@@ -31,13 +31,15 @@ int main()
 
 		// 게임 시작 시간
 		time_t startTime = time(NULL);
+		time_t currentTime;
 		while (true)
 		{
 			if (Update(map, &player, &deltaTime) == false)
 			{
 				break;
 			}
-			Render(map, &player);
+			currentTime = time(NULL) - startTime;
+			Render(map, &player, currentTime);
 			Frame(60, &player, &deltaTime);
 		}
 		// 게임 종료 시간
