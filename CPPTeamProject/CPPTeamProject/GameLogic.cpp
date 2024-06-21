@@ -26,7 +26,7 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 {
 	static std::vector<ARROW> arrowVec;
 	COORD mapStart =
-	{ GetConsoleResolution().X / 2 - 4,
+	{ GetConsoleResolution().X / 2 - 8,
 	  GetConsoleResolution().Y / 2 - 4 };
 
 	pPlayer->countMoveTime += *deltaTime;
