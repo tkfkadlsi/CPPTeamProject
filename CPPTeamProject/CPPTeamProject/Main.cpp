@@ -4,6 +4,9 @@
 #include "mci.h"
 #include<iostream>
 #include<conio.h>
+#include<Windows.h>
+#include<io.h>
+#include<fcntl.h>
 using namespace std;
 
 int main()
@@ -48,26 +51,53 @@ int main()
 		system("cls");
 		// 경과 시간 계산
 		double duration = difftime(endTime, startTime);
-		cout << "버틴 시간: " << duration << "초" << endl;
-		Sleep(1000);
-		cout << "잠시 후 타이틀로 돌아갑니다.";
-		Sleep(3000);
 
 		Gotoxy(0, 0);
-		COORD xy = GetConsoleResolution();
+		int beforemode = _setmode(_fileno(stdout), _O_U16TEXT);
 
-		int x = xy.X;
-		int y = xy.Y;
+		SetColor((int)COLOR::LIGHT_YELLOW, (int)COLOR::BLACK);
 
-		SetColor((int)COLOR::WHITE, (int)COLOR::WHITE);
-		for (int i = 0; i < y; i++)
+		wcout << L"         ↓                  ↓" << endl;
+		wcout << L"             __                ↓" << endl;
+		wcout << L"    ↓     ,db'    ↓     ↓" << endl;
+		wcout << L"         ,d8/       ↓             ↓" << endl;
+		wcout << L"         888" << endl;
+		wcout << L"         `db\\             ↓" << endl;
+		wcout << L"           `o`_                    ↓ ↓" << endl;
+		wcout << L"      ↓                      _          ↓" << endl;
+		wcout << L"            ↓                 / )" << endl;
+
+		wcout << L"         ↓   (\\__/)↓        ( (  ↓" << endl;
+		wcout << L"       ,-.,-.,)    (.,-.,-.,-.) ).,-.,-." << endl;
+		wcout << L"      | @|  ={      }= | @|  / / | @|o |" << endl;
+		wcout << L"     _j__j__j_)     `-------/ /__j__j__j_" << endl;
+		wcout << L"     ________(               /___________" << endl;
+		wcout << L"      |  | @| \\              || o|O | @|" << endl;
+		wcout << L"      |o |  |,'\\       ,   ,\"|  |  |  |  hjw" << endl;
+		wcout << L"     vV\\|/vV|`-\\  ,---\\   | \\Vv\\hjwVv\\//v" << endl;
+		wcout << L"                _) )    `. \\/" << endl;
+		wcout << L"               (__/       ) )" << endl;
+		wcout << L"                         (_/" << endl;
+
+		SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
+		int curoremode = _setmode(_fileno(stdout), beforemode);
+
+		cout << "버틴 시간: " << duration << "초" << endl;
+		Sleep(3000);
+		cout << "잠시 후 타이틀로 돌아갑니다.";
+		Sleep(4000);
+
+		for (int i = 0; i < 1; ++i)
 		{
-			for (int j = 0; j < x; j++)
-			{
-				cout << "■";
-			}
-			cout << '\n';
-			Sleep(10);
+			Gotoxy(0, 0);
+			SetColor((int)COLOR::BLACK, (int)COLOR::WHITE);
+			system("cls");
+			Sleep(200);
+
+			Gotoxy(0, 0);
+			SetColor((int)COLOR::WHITE, (int)COLOR::BLACK);
+			system("cls");
+			Sleep(200);
 		}
 		
 	}
