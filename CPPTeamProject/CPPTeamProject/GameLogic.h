@@ -24,13 +24,13 @@ typedef struct _tagplayer
 
 typedef struct _tagarrow
 {
-	POS position;
-	int spawnDir;
-	long countwaitTime;
-	bool isBombed = false;
-	long countAfterBombTime;
+	POS position; //화살표의 위치
+	int spawnDir; //화살표의 방향
+	long countwaitTime; //터지기까지의 시간
+	bool isBombed = false; //터졌는지 아닌지
+	long countAfterBombTime; //터진게 사라지기까지의 시간
 
-	bool operator==(_tagarrow other)
+	bool operator==(_tagarrow other) // == 연산자
 	{
 		return
 			position == other.position &&

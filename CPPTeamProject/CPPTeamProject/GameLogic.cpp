@@ -37,9 +37,13 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 	pPlayer->countSuperGuardCoolDown += *deltaTime;
 	pPlayer->superGuardTime -= *deltaTime;
 	MoveUpdate(map, pPlayer);
+	//플레이어 이동 입력
 	CreateArrow(map, pPlayer, arrowVec, mapStart, deltaTime);
+	//시간에 따라 화살표 생성
 	ActiveArrow(map, arrowVec, mapStart, deltaTime);
+	//생성된 화살표 중 countWaitTime이 0인 화살표는 맵에 폭탄을 터트림
 	DeleteArrow(map, arrowVec, mapStart, deltaTime);
+	//폭탄이 터진 후 countAfterBomb이 0이되면 폭탄이 사라짐
 
 	POS playerPos = pPlayer->position;
 	bool IsSuperGuard = false;
