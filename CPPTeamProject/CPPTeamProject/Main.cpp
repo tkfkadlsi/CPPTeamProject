@@ -30,11 +30,15 @@ int main()
 			if (isGameStart) break;
 			else return 0;
 		}
+
+
 		BorderRender(8);
 
 		// 게임 시작 시간
 		time_t startTime = time(NULL);
 		time_t currentTime;
+		//초기화용 Update
+		Update(map, &player, &deltaTime, true);
 		while (true)
 		{
 			if (Update(map, &player, &deltaTime) == false)
@@ -100,6 +104,13 @@ int main()
 			Sleep(200);
 		}
 		
+		for (int y = 0; y < 8; y++)
+		{
+			for (int x = 0; x < 8; x++)
+			{
+				map[y][x] = 0;
+			}
+		}
 	}
 	return 0;
 }

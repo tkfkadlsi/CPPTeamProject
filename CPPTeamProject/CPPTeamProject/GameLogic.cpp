@@ -22,8 +22,13 @@ void Frame(int frame, PPLAYER pPlayer, long* deltaTime)
 		}
 	}
 }
-bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
+bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime, bool isStart)
 {
+	static int waitCreateArrow = 3000;
+	if (isStart)
+	{
+		waitCreateArrow = 3000;
+	}
 	static std::vector<ARROW> arrowVec;
 	COORD mapStart =
 	{
@@ -38,7 +43,7 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 	pPlayer->superGuardTime -= *deltaTime;
 	MoveUpdate(map, pPlayer);
 	//플레이어 이동 입력
-	CreateArrow(map, pPlayer, arrowVec, mapStart, deltaTime);
+	CreateArrow(map, pPlayer, arrowVec, mapStart, &waitCreateArrow, deltaTime);
 	//시간에 따라 화살표 생성
 	ActiveArrow(map, arrowVec, mapStart, deltaTime);
 	//생성된 화살표 중 countWaitTime이 0인 화살표는 맵에 폭탄을 터트림
@@ -58,6 +63,7 @@ bool Update(char map[8][8], PPLAYER pPlayer, long* deltaTime)
 
 	if (map[playerPos.y][playerPos.x] == 2 && !IsSuperGuard)
 	{
+		ResetArrow(arrowVec);
 		return false;
 	}
 
@@ -110,7 +116,7 @@ void Render(char map[8][8], PPLAYER pPlayer, time_t currentTime)
 			}
 			break;
 			case 2:
-				cout << "◎";
+ 				cout << "◎";
 				break;
 			case 3:
 				cout << "♠";
@@ -189,32 +195,29 @@ void MoveUpdate(char map[8][8], PPLAYER pPlayer)
 	}
 }
 
-void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, COORD mapStart, long* deltaTime)
+void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, COORD mapStart, int* waitCreateArrow, long* deltaTime)
 {
-
-	static int waitCreateArrow = 3000;
+	
 	static int countWaitTime = 0;
 	int createAmount = 0;
 
 	countWaitTime += *deltaTime;
 
-	if (countWaitTime > waitCreateArrow)
+	if (countWaitTime > *waitCreateArrow)
 	{
-		countWaitTime -= waitCreateArrow;
-		waitCreateArrow -= 50;
-		if (waitCreateArrow < 1000)
+		countWaitTime -= *waitCreateArrow;
+		*waitCreateArrow -= 50;
+		if (*waitCreateArrow < 1000)
 		{
-			waitCreateArrow = 1000;
+			*waitCreateArrow = 1000;
 		}
 
-		createAmount = 10 - waitCreateArrow / 300;
+		createAmount = 10 - *waitCreateArrow / 300;
 	}
 	else
 	{
 		return;
 	}
-
-
 
 	bool isUp = true, isRight = true;
 
@@ -257,7 +260,7 @@ void CreateArrow(char map[8][8], PPLAYER pPlayer, std::vector<ARROW>& arrowVec, 
 		ARROW arrow = {
 			arrow.position = spawnPos,
 			arrow.spawnDir = dir,
-			arrow.countwaitTime = waitCreateArrow / 2
+			arrow.countwaitTime = *waitCreateArrow / 2
 		};
 
 		arrowVec.push_back(arrow);
@@ -365,3 +368,7 @@ void DeleteArrow(char map[8][8], std::vector<ARROW>& arrowVec, COORD mapStart, l
 	}
 }
 
+void ResetArrow(std::vector<ARROW>& arrowVec)
+{
+	arrowVec.clear();
+}
